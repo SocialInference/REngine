@@ -11,19 +11,22 @@ toItemSets <- function(setMatrix, sup)
 }
 
 # test
-matrix <- matrix(c(0,0,0,1,
-                   0,0,1,0,
-                   0,0,1,1),
-                 nrow=3, 
-                 ncol=4
-                 )
-colnames(matrix) <- c("a","b","c","d")
-sup <- as.data.frame(c(.1, .3, .3))
-sets <- toItemSets(matrix,sup)
-inspect(sets)
-ruleInduction(sets)
-
+#matrix <- matrix(c(1,1,0,
+                   #1,0,1,
+                   #0,0,0,
+                   #0,0,0),
+                 #nrow=3, 
+                 #ncol=4
+                 #)
+#colnames(matrix) <- c("a","b","c","d")
+#sup <- as.data.frame(c(.1, .3, .3))
+#sets <- toItemSets(matrix,sup)
+#inspect(sets)
+#ruleInduction(sets)
 
 ec  <- eclat(Adult, parameter = list(support = 0.4))
+nsets <- toItemSets(as(items(ec),"matrix"),quality(ec))
+nrec <- ruleInduction(nsets)
+inspect(nrec[1:5])
 rec <- ruleInduction(ec)
 inspect(rec[1:5])
