@@ -166,7 +166,9 @@ ap_gen<-function(items) {
           if(comparerow!=0 && comparerow!=testrow) {
             prospect<-items[r,] + items[testrow,]
             prospect<-ifelse(prospect==2,1,prospect)
-            candidates<-rbind(candidates,prospect)
+            if(!has_infrequent_subset(prospect,items)) {
+              candidates<-rbind(candidates,prospect)
+            }
           }
         }
       }
@@ -176,10 +178,23 @@ ap_gen<-function(items) {
   candidates
 }
 
-d<-diag(5)
-d[2,1]<-1
-d[5,3]<-1
-x<-ap_gen(diag(5))
-y<-ap_gen(x)
+has_infrequent_subset<-function(set, items) {
+  has_infrequent<-TRUE
+  # To generate subsets to check just turn off a one and check if that item is in the itemset
+  for(i in 1:length(set)) {
+    if(set[i] == 1) {
+      testset<-set
+      testset[i]<-0
+      
+      for(j in dim(items)[1]) {
+        if(all(testset==items[j,])) {
+          has_infrequent<-FALSE
+          break
+        }
+      }
+    }
+  }
+  has_infrequent
+}
 
 
