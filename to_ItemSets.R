@@ -26,7 +26,7 @@ toItemSets <- function(setMatrix, sup)
 
 ec  <- eclat(Adult, parameter = list(support = 0.4))
 nsets <- toItemSets(as(items(ec),"matrix"),quality(ec))
-nrec <- ruleInduction(nsets)
+nrec <- ruleInduction(nsets, confidence=0.95)
 inspect(nrec[1:5])
 rec <- ruleInduction(ec)
 inspect(rec[1:5])
