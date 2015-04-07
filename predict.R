@@ -12,15 +12,20 @@ inspect(rules.sub)
 # assume predictors is a sparse row mapping
 invokeRules <- function(scenario)
 {
+  subrules<-c()
+  j = 1;
   for(i in 1:length(rules))
   {
     if(all(as(lhs(rules[i]), "matrix")==scenario))
-      return(inspect(rules[i]))
+    {
+      subrules[j] <- rules[i]
+      j = j+1
+    }
   }
+  return(subrules)
 }
 # get rules based on lhs matching transaction
-invokeRules(as(lhs(rules[1]), "matrix"))
-
+newRules<-invokeRules(as(lhs(rules[1]), "matrix"))
 
 # assume predictors is a list of items
 invokeRulesList <- function(rules, predictors)
