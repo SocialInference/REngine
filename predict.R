@@ -1,10 +1,6 @@
 library(combinat)
 ##Do Something using the rules
 
-#Example using Adult data
-# predict Income
-rules <- nrec
-
 # assume scenario is a sparse row mapping in matrix format
 # uses feature set defined by scenario to find and output relevant rules
 # finds exact matches to a rule
@@ -28,5 +24,5 @@ whatAffects <- function(feature)
   return(subrules)
 }
 
-rules.affected <- whatAffects("capital-gain")
+rules.affected <- whatAffects("dur1730")
 inspect(lhs(rules.affected))
